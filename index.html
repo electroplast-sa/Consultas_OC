@@ -108,6 +108,51 @@ tbody td{padding:12px 15px;color:var(--navy);vertical-align:middle}
 .filedrop input{display:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 ::-webkit-scrollbar{width:5px;height:5px}
+.tabs{display:flex;gap:6px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:5px;width:fit-content;box-shadow:0 1px 4px rgba(11,37,69,0.04)}
+.tab{font-family:var(--font);font-size:13px;font-weight:600;color:var(--cobalt);background:none;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;transition:background 0.15s,color 0.15s;display:flex;align-items:center;gap:8px}
+.tab svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none}
+.tab:hover{background:var(--mist)}
+.tab.act{background:var(--navy);color:#fff}
+.view{display:none;flex-direction:column;gap:16px}
+.view.act{display:flex}
+.msol-row{max-width:420px;margin-bottom:20px}
+.pgbar{display:flex;align-items:center;gap:8px;padding:14px 4px 2px;flex-wrap:wrap}
+.pgbtn{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font);font-size:13px;font-weight:700;color:var(--cobalt);cursor:pointer;transition:border-color 0.15s,background 0.15s,color 0.15s;user-select:none}
+.pgbtn:hover:not(:disabled){border-color:var(--accent);background:var(--ice);color:var(--accent)}
+.pgbtn:disabled{opacity:0.4;cursor:default}
+.pglbl{font-size:13px;color:var(--label);margin:0 6px;white-space:nowrap}
+.pglbl strong{color:var(--navy);font-weight:700}
+.pggo{display:flex;align-items:center;gap:8px;margin-left:10px}
+.pggo span{font-size:13px;color:var(--label)}
+.pggo input{width:64px;height:34px;border:1.5px solid var(--border);border-radius:8px;text-align:center;font-family:var(--font);font-size:13px;font-weight:600;color:var(--navy);background:#fff;outline:none;transition:border-color 0.15s}
+.pggo input:focus{border-color:var(--accent)}
+.pggo button{height:34px;padding:0 16px;background:var(--cobalt);border:none;border-radius:8px;font-family:var(--font);font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:background 0.15s}
+.pggo button:hover{background:var(--navy)}
+.pgrange{font-size:12px;color:var(--slate);margin-left:auto;white-space:nowrap}
+.flt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.flt-grid .sg label{font-size:10px}
+.flt-in{width:100%;height:38px;background:var(--mist);border:1.5px solid var(--border);border-radius:8px;padding:0 11px;font-family:var(--font);font-size:13px;font-weight:500;color:var(--navy);outline:none;transition:border-color 0.15s,box-shadow 0.15s}
+.flt-in:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(62,146,204,0.13)}
+select.flt-in{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 16 16' fill='none' stroke='%238DA9C4' stroke-width='2.2' stroke-linecap='round'><polyline points='4,6 8,10 12,6'/></svg>");background-repeat:no-repeat;background-position:right 10px center;padding-right:32px}
+.flt-dates{display:flex;align-items:center;gap:7px}
+.flt-dates span{font-size:11px;color:var(--slate);flex-shrink:0}
+.flt-actions{display:flex;align-items:flex-end;gap:10px}
+.flt-clear{height:38px;padding:0 16px;border:1.5px solid var(--border);border-radius:8px;background:#fff;font-family:var(--font);font-size:12px;font-weight:600;color:var(--cobalt);cursor:pointer;transition:border-color 0.15s,background 0.15s;white-space:nowrap}
+.flt-clear:hover{border-color:var(--accent);background:var(--ice)}
+.flt-count{font-size:12px;color:var(--slate);font-weight:500;margin-left:auto;align-self:flex-end;padding-bottom:10px}
+.exp-row{cursor:pointer;user-select:none}
+.exp-row td:first-child{width:36px}
+.exp-chev{width:16px;height:16px;color:var(--slate);transition:transform 0.2s;display:inline-block;vertical-align:middle}
+.exp-row.open .exp-chev{transform:rotate(90deg)}
+.exp-row.open{background:#F0F7FF}
+.det-row td{padding:0;background:#FAFCFF;border-bottom:1px solid #E8EFF7}
+.det-inner{padding:14px 18px 18px 52px;animation:fadeUp 0.18s ease-out}
+.det-inner .tw{border-radius:8px}
+.det-inner thead th{background:var(--steel);font-size:10px;padding:8px 12px}
+.det-inner tbody td{padding:9px 12px;font-size:12.5px}
+.tbl-empty{padding:36px 16px;text-align:center;font-size:13px;color:var(--slate)}
+@media(max-width:860px){.flt-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.flt-grid{grid-template-columns:1fr}}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
@@ -130,6 +175,20 @@ tbody td{padding:12px 15px;color:var(--navy);vertical-align:middle}
     <div class="dot" id="bdot"></div>
     <span id="btxt">Cargando datos…</span>
   </div>
+
+  <div class="tabs">
+    <button class="tab act" id="tab-consulta" onclick="showView('consulta')">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      Consulta de OC
+    </button>
+    <button class="tab" id="tab-mis" onclick="showView('mis')">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="20"/></svg>
+      Mis Órdenes de Compra
+    </button>
+  </div>
+
+  <!-- ============ VISTA 1: CONSULTA DE OC ============ -->
+  <section class="view act" id="view-consulta">
 
   <div class="card">
     <div class="sel-row">
@@ -177,7 +236,68 @@ tbody td{padding:12px 15px;color:var(--navy);vertical-align:middle}
     <div id="traz-body"><div class="empty"><div class="empty-icon"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="22" r="5"/><circle cx="22" cy="22" r="5"/><circle cx="35" cy="22" r="5"/><line x1="14" y1="22" x2="17" y2="22"/><line x1="27" y1="22" x2="30" y2="22"/></svg></div><p>Seleccione una OC para ver la trazabilidad</p></div></div>
   </div>
 
-  <div style="padding:4px 0 8px">
+  </section>
+
+  <!-- ============ VISTA 2: MIS ÓRDENES DE COMPRA ============ -->
+  <section class="view" id="view-mis">
+
+  <div class="card" id="card-all">
+    <div class="card-head"><span class="card-title">Mis Órdenes de Compra · Vista General</span><span class="cbadge" id="badge-all" style="display:none"></span></div>
+
+    <div class="sg msol-row">
+      <label>Solicitante</label>
+      <div class="dd" id="dd-msol">
+        <div class="ddbtn" id="btn-msol" onclick="toggleDD('msol')">
+          <span id="val-msol" class="ph">Seleccione un solicitante</span>
+          <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="ddpanel" id="panel-msol">
+          <div class="ddsearch"><input type="text" placeholder="Buscar…" id="search-msol" oninput="filterDD('msol',this.value)" autocomplete="off"></div>
+          <div class="ddlist" id="list-msol"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flt-grid" id="flt-grid" style="display:none">
+      <div class="sg">
+        <label>OC</label>
+        <input type="text" class="flt-in" id="f-oc" placeholder="Ej. 22752" oninput="onFilterChange()" autocomplete="off">
+      </div>
+      <div class="sg">
+        <label>Estatus</label>
+        <select class="flt-in" id="f-est" onchange="onFilterChange()"><option value="">(Todos)</option></select>
+      </div>
+      <div class="sg">
+        <label>Trazabilidad</label>
+        <select class="flt-in" id="f-traz" onchange="onFilterChange()"><option value="">(Todas)</option></select>
+      </div>
+      <div class="sg">
+        <label>Proveedor</label>
+        <select class="flt-in" id="f-prov" onchange="onFilterChange()"><option value="">(Todos)</option></select>
+      </div>
+      <div class="sg">
+        <label>Procedencia</label>
+        <select class="flt-in" id="f-proc" onchange="onFilterChange()"><option value="">(Todas)</option></select>
+      </div>
+      <div class="sg">
+        <label>Fecha creación OC · Desde</label>
+        <input type="date" class="flt-in" id="f-d1" onchange="onFilterChange()">
+      </div>
+      <div class="sg">
+        <label>Fecha creación OC · Hasta</label>
+        <input type="date" class="flt-in" id="f-d2" onchange="onFilterChange()">
+      </div>
+      <div class="flt-actions">
+        <button class="flt-clear" onclick="clearFilters()">Limpiar filtros</button>
+        <span class="flt-count" id="f-count"></span>
+      </div>
+    </div>
+    <div id="all-body"><div class="empty"><div class="empty-icon"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="14" r="6"/><path d="M5 38c0-7 5-11 11-11s11 4 11 11"/><line x1="32" y1="14" x2="40" y2="14"/><line x1="32" y1="21" x2="40" y2="21"/><line x1="32" y1="28" x2="38" y2="28"/></svg></div><p>Seleccione un solicitante para ver sus órdenes de compra</p></div></div>
+  </div>
+
+  </section>
+
+  <div style="padding:4px 0 8px;display:none">
     <p style="font-size:11px;color:var(--slate);margin-bottom:8px;text-align:center;letter-spacing:0.02em">Actualizar datos · Arrastra el archivo <strong style="color:var(--navy)">oc-data.json</strong> aquí o haz clic para seleccionarlo</p>
     <div class="filedrop" id="filedrop" onclick="document.getElementById('fi').click()" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="handleDrop(event)">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:6px;color:var(--slate)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -189,10 +309,19 @@ tbody td{padding:12px 15px;color:var(--navy);vertical-align:middle}
 
 <script>
 const SHAREPOINT_URL='https://electroplast-sa.github.io/Consultas_OC/oc-data.json';
-const F={id:'ID Linea OC',oc:'OC',fecha_oc:'Fecha_OC',codigo:'Código',desc:'Descripción',estatus:'Estatus',estatus_oc:'Estatus OC',tipo_po:'Tipo de PO',servicio:'Servicio/proyecto',sistema:'Estatus sistema',proveedor:'Proveedor',traz:'Trazabilidad',comentario:'Comentario General',f_req:'Fecha requerida al prov',f_envio:'Fecha de envío PO a Prov',procedencia:'Procedencia',parcial:'Parcial',f_po_lista:'Fecha PO lista (Proveedor)',f_eta:'Fecha ETA (Movible) ',just_eta:'Justificación cambio ETA',f_recolec:'Fecha confirm_x002e_ recolecta ',f_arribo:'Fecha arribo EP',carpeta:'Carpeta BI completa ',f_carpeta:'Fecha carpeta completa',seguimiento:'Seguimiento y desempeño',f_eval:'Fecha de evaluación ',po_qty:'PO Qty Completa ',comprador:'Comprador',solicitante:'Solicitante_Final'};
+const F={id:'ID Linea OC',oc:'OC',fecha_oc:'Fecha_OC',codigo:'Código',desc:'Descripción',estatus:'Estatus',estatus_oc:'Estatus OC',tipo_po:'Tipo de PO',servicio:'Servicio/proyecto',sistema:'Estatus sistema',proveedor:'Proveedor',traz:'Trazabilidad',comentario:'Comentario General',f_req:'Fecha requerida al prov',f_req_ep:'Fecha requerida en Ep',f_envio:'Fecha de envío PO a Prov',procedencia:'Procedencia',parcial:'Parcial',f_po_lista:'Fecha PO lista (Proveedor)',f_eta:'Fecha ETA (Movible) ',just_eta:'Justificación cambio ETA',f_recolec:'Fecha confirm_x002e_ recolecta ',f_arribo:'Fecha arribo EP',carpeta:'Carpeta BI completa ',f_carpeta:'Fecha carpeta completa',seguimiento:'Seguimiento y desempeño',f_eval:'Fecha de evaluación ',po_qty:'PO Qty Completa ',comprador:'Comprador',solicitante:'Solicitante_Final'};
 const EMBEDDED=[{"ID Linea OC":"83","OC":"7","Fecha_OC":"46050","Código":"PS 1540","Descripción":"Servicio de desalmacenaje tarjeta electronica EMAX","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"","Proveedor":"CONFECCIONES INDUSTRIALES","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"45548","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Mauricio R. Carvajal Ramos","Solicitante_Final":"Diego Vicente Ramirez"},{"ID Linea OC":"12923","OC":"7","Fecha_OC":"46050","Código":"RE-21467","Descripción":"grasa","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"","Proveedor":"CONFECCIONES INDUSTRIALES","Trazabilidad":"","Comentario General":"OC vieja a eliminar","Fecha requerida al prov":"44285","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"44285","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Mauricio R. Carvajal Ramos","Solicitante_Final":"Diego Vicente Ramirez"},{"ID Linea OC":"12924","OC":"7","Fecha_OC":"46050","Código":"RE-2263","Descripción":"graza","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"","Proveedor":"CONFECCIONES INDUSTRIALES","Trazabilidad":"","Comentario General":"OC vieja a eliminar","Fecha requerida al prov":"44285","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"44285","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Mauricio R. Carvajal Ramos","Solicitante_Final":"Diego Vicente Ramirez"},{"ID Linea OC":"41604","OC":"20470","Fecha_OC":"46030","Código":"RE-20296","Descripción":"BALANZA ELECTONICA TIPO CONTADORA HIWEIGH","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"","Proveedor":"ROMANAS AZOCAR","Trazabilidad":"","Comentario General":"OC en espera debido al proyecto de etapa C","Fecha requerida al prov":"46008","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"46044","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Alexander León Madrigal","Solicitante_Final":"Evelyn Cordero Salazar"},{"ID Linea OC":"43140","OC":"22714","Fecha_OC":"46027","Código":"SERV1","Descripción":"OC EN BASE A cotización: 2025-042E","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Proyecto","Estatus sistema":"","Proveedor":"INCONTROL-Sistemas de Control y Ahorro Energético","Trazabilidad":"","Comentario General":"","Fecha requerida al prov":"46034","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Mauricio R. Carvajal Ramos","Solicitante_Final":"Diego Vicente Ramírez"},{"ID Linea OC":"43141","OC":"22715","Fecha_OC":"46027","Código":"SU-25723","Descripción":"CAJA ORGANIZADORA 10L TRANSPARENTE","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"","Proveedor":"Almacenes El Rey Limitada","Trazabilidad":"NO APLICA","Comentario General":"OC duplicada","Fecha requerida al prov":"46034","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Manuel Montero Patiño","Solicitante_Final":"Héctor Montalvan Vallecillo"},{"ID Linea OC":"43142","OC":"22717","Fecha_OC":"46027","Código":"RE-264572","Descripción":"H.G. LISO #28 1.20X2.44M","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"CORPORACION COMERCIAL EL LAGAR S.A","Trazabilidad":"Arribada","Comentario General":"Cotejar con suministros el ingreso y la salida de esta orden","Fecha requerida al prov":"46034","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Manuel Montero Patiño","Solicitante_Final":"Kendall Jesús Jiménez Bermúdez"},{"ID Linea OC":"43143","OC":"22726","Fecha_OC":"46027","Código":"SERV1","Descripción":"DELL Pro 16 PC16250 Intel Core Ultra 7 255U Ram 64GB","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Recibido","Proveedor":"P.R. Actualidad Tecnica","Trazabilidad":"Servicio completado","Comentario General":"Completadas por Esteban Monge","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Marco Tulio Herrera Vargas"},{"ID Linea OC":"43144","OC":"22726","Fecha_OC":"46027","Código":"SERV2","Descripción":"Dell - Docking station adapter - Pro Thunderbolt 4","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Recibido","Proveedor":"P.R. Actualidad Tecnica","Trazabilidad":"Servicio completado","Comentario General":"Completadas por Esteban Monge","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Marco Tulio Herrera Vargas"},{"ID Linea OC":"43147","OC":"22728","Fecha_OC":"46027","Código":"RE-20163","Descripción":"KIT REPARACIÓN DE CILINDROS DSBC/G-50-753090","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"Recibido","Proveedor":"Amazon","Trazabilidad":"Arribada","Comentario General":"Completadas por Esteban Monge","Fecha requerida al prov":"46059","Fecha de envío PO a Prov":"","Procedencia":"Internacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"46073","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Manuel Montero Patiño","Solicitante_Final":"Manuel Montero Patiño"},{"ID Linea OC":"43150","OC":"22731","Fecha_OC":"46027","Código":"SERV1","Descripción":"HP ProBook 460 Intel Core Ultra 7 155U Ram 32GB HD 512GB","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"P.R. Actualidad Tecnica","Trazabilidad":"Servicio completado","Comentario General":"Completadas por Esteban Monge","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Christian Vega Ramírez"},{"ID Linea OC":"43151","OC":"22729","Fecha_OC":"46027","Código":"SU-0015","Descripción":"Bolsa plástica negra mediana para basura 48 pq","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"ISAURA VALERIA FALLAS ROMERO","Trazabilidad":"Arribada","Comentario General":"Cotejar con suministros","Fecha requerida al prov":"46034","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"46030","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Alexander León Madrigal","Solicitante_Final":"Alexander León Madrigal"},{"ID Linea OC":"43152","OC":"22729","Fecha_OC":"46027","Código":"RE-0024","Descripción":"Algodón 100% torunda 1,1 gr","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"ISAURA VALERIA FALLAS ROMERO","Trazabilidad":"Arribada","Comentario General":"Cotejar con suministros","Fecha requerida al prov":"46034","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"46030","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Alexander León Madrigal","Solicitante_Final":"Alexander León Madrigal"},{"ID Linea OC":"43202","OC":"22752","Fecha_OC":"46029","Código":"SERV1","Descripción":"Hot runner tip gate (1x)(Moldmasters/Husky) 300x370x520mm","Estatus":"En proceso","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"JT MOLD TECHNOLOGY CO, LTD","Trazabilidad":"En producción","Comentario General":"","Fecha requerida al prov":"46097","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Manuel Montero Patiño","Solicitante_Final":"Samantha Pina Castillo"},{"ID Linea OC":"43203","OC":"22752","Fecha_OC":"46029","Código":"SERV2","Descripción":"cav/core spares","Estatus":"En proceso","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"JT MOLD TECHNOLOGY CO, LTD","Trazabilidad":"En producción","Comentario General":"","Fecha requerida al prov":"46038","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Manuel Montero Patiño","Solicitante_Final":"Samantha Pina Castillo"},{"ID Linea OC":"43209","OC":"22756","Fecha_OC":"46029","Código":"Pump Silicone Tube","Descripción":"Pump Silicone Tube","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"Cirtec Medical Corp.","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46104","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43212","OC":"22759","Fecha_OC":"46029","Código":"Polypropileno 20C65NA","Descripción":"Resina Polipropileno Copolimero De Impacto Mi 20","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"Coansa Snetor","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46037","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43213","OC":"22759","Fecha_OC":"46029","Código":"T60-800-119","Descripción":"HDPE T60-800-119","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"Coansa Snetor","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46037","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43214","OC":"22760","Fecha_OC":"46029","Código":"CAJ-01","Descripción":"CAJA EP 1 (RAWLING)","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Material de Empaque","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"CORRUGADOS SAN BOSCO","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46111","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43215","OC":"22763","Fecha_OC":"46029","Código":"Tritan MX711","Descripción":"Tritan MX711","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"EASTMAN CHEMICAL LTD","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46125","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43221","OC":"22765","Fecha_OC":"46030","Código":"SERV1","Descripción":"SILLA BANCO CAJERO POLIURETANO NEGRO","Estatus":"N/A","Estatus OC":"Rechazado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Proyecto","Estatus sistema":"Recibido","Proveedor":"CMSOLUCIONES S.A","Trazabilidad":"NO APLICA","Comentario General":"rechazada","Fecha requerida al prov":"46037","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Alexander León Madrigal","Solicitante_Final":"Evelyn Cordero Salazar"},{"ID Linea OC":"43245","OC":"22772","Fecha_OC":"46030","Código":"CALIBRE MEGARAD 2081-15","Descripción":"CALIBRE MEGARAD 2081-15 SC03010","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"FORMERRA LLC","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46041","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43280","OC":"22783","Fecha_OC":"46034","Código":"RE-264596","Descripción":"ACEITE COMPRESOR 1/8 GL ST-1253 CAMPBELL","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Repuestos y Suministros","Servicio/proyecto":"","Estatus sistema":"Recibido","Proveedor":"CORPORACION COMERCIAL EL LAGAR S.A","Trazabilidad":"Arribada","Comentario General":"","Fecha requerida al prov":"46044","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"46023","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Mauricio R. Carvajal Ramos","Solicitante_Final":"Christian Vega Ramírez"},{"ID Linea OC":"43303","OC":"22794","Fecha_OC":"46034","Código":"SERV1","Descripción":"Servicio de alquiler del apilador - Horas extras Diciembre","Estatus":"En proceso","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"Dequipos S.R.L","Trazabilidad":"Arribada","Comentario General":"","Fecha requerida al prov":"46034","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"José Francisco Solera Castillo"},{"ID Linea OC":"43329","OC":"22801","Fecha_OC":"46030","Código":"SERV1","Descripción":"Subscription M365","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"MICROSOFT CORPORATION","Trazabilidad":"Arribada","Comentario General":"","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Marco Tulio Herrera Vargas"},{"ID Linea OC":"43330","OC":"22801","Fecha_OC":"46030","Código":"SERV2","Descripción":"Subscription M365","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"MICROSOFT CORPORATION","Trazabilidad":"Arribada","Comentario General":"","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Marco Tulio Herrera Vargas"},{"ID Linea OC":"43331","OC":"22801","Fecha_OC":"46030","Código":"SERV3","Descripción":"Subscription M365","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"MICROSOFT CORPORATION","Trazabilidad":"Arribada","Comentario General":"Completadas por Esteban Monge","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Marco Tulio Herrera Vargas"},{"ID Linea OC":"43333","OC":"22804","Fecha_OC":"46034","Código":"SERV1","Descripción":"SAP Business One Professional license Perpetual License","Estatus":"Completada","Estatus OC":"Aprobado","Tipo de PO":"Servicios / Proyectos","Servicio/proyecto":"Servicio","Estatus sistema":"Pendiente","Proveedor":"MegaSupport","Trazabilidad":"Arribada","Comentario General":"Completadas por Esteban Monge","Fecha requerida al prov":"","Fecha de envío PO a Prov":"","Procedencia":"Nacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Esteban Monge Jiménez","Solicitante_Final":"Marco Tulio Herrera Vargas"},{"ID Linea OC":"43341","OC":"22811","Fecha_OC":"46034","Código":"CAJ-17","Descripción":"CAJA BS 59X49X195","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Material de Empaque","Servicio/proyecto":"","Estatus sistema":"Recibido","Proveedor":"CORRUGADOS SAN BOSCO","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46044","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Mauricio R. Carvajal Ramos","Solicitante_Final":"Sergio Ortiz Rojas"},{"ID Linea OC":"43352","OC":"22820","Fecha_OC":"46035","Código":"BOL-17","Descripción":"BOL-17 Bolsa empaque","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Material de Empaque","Servicio/proyecto":"","Estatus sistema":"Recibido","Proveedor":"Grupo Ecoplast S.A.","Trazabilidad":"NO APLICA","Comentario General":"","Fecha requerida al prov":"46055","Fecha de envío PO a Prov":"","Procedencia":"","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Luz Esmeralda Suárez Ramírez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"},{"ID Linea OC":"43392","OC":"22842","Fecha_OC":"46036","Código":"TR55NAT","Descripción":"TR55 Natural","Estatus":"N/A","Estatus OC":"Aprobado","Tipo de PO":"Materia Prima","Servicio/proyecto":"","Estatus sistema":"Pendiente","Proveedor":"ENTEC POLYMER","Trazabilidad":"Arribada","Comentario General":"","Fecha requerida al prov":"46041","Fecha de envío PO a Prov":"","Procedencia":"Internacional","Parcial":"","Fecha PO lista (Proveedor)":"","Fecha ETA (Movible) ":"","Justificación cambio ETA":"","Fecha confirm_x002e_ recolecta ":"","Fecha arribo EP":"","Carpeta BI completa ":"","Fecha carpeta completa":"","Seguimiento y desempeño":"","Fecha de evaluación ":"","PO Qty Completa ":"","Comprador":"Pamela Molina Gonzalez","Solicitante_Final":"Luz Esmeralda Suárez Ramírez"}];
 let RAW=[],OC_MAP={},SOL_MAP={},ST={sol:'(Todos)',oc:null};
-let DD={sol:{open:false,all:[],filtered:[]},oc:{open:false,all:[],filtered:[]}};
+let DD={sol:{open:false,all:[],filtered:[]},oc:{open:false,all:[],filtered:[]},msol:{open:false,all:[],filtered:[]}};
+let MSOL=null; // solicitante seleccionado en "Mis Órdenes de Compra" (null = vista vacía)
+
+function showView(v){
+  document.getElementById('view-consulta').classList.toggle('act',v==='consulta');
+  document.getElementById('view-mis').classList.toggle('act',v==='mis');
+  document.getElementById('tab-consulta').classList.toggle('act',v==='consulta');
+  document.getElementById('tab-mis').classList.toggle('act',v==='mis');
+  Object.keys(DD).forEach(closeDD);
+}
 
 function excelToDate(s){
   if(!s||s==='')return '';
@@ -205,6 +334,12 @@ function excelToDate(s){
 
 function processData(data,src){
   RAW=data;
+  // Autodetectar el nombre real de la columna "Fecha requerida en Ep" (tolerante a mayúsculas/espacios)
+  if(data.length){
+    const norm=s=>String(s).trim().toLowerCase().replace(/\s+/g,' ');
+    const k=Object.keys(data[0]).find(k=>norm(k)==='fecha requerida en ep');
+    if(k)F.f_req_ep=k;
+  }
   OC_MAP={};SOL_MAP={};
   data.forEach(r=>{
     const oc=r[F.oc],sol=r[F.solicitante]||'—';
@@ -224,6 +359,9 @@ function processData(data,src){
   document.getElementById('val-oc').textContent='Seleccione una OC';
   document.getElementById('val-oc').className='ph';
   clearCards();
+  DD.msol.all=[{v:'(Todos)',l:'(Todos)'},...Object.keys(SOL_MAP).filter(s=>s&&s!=='0'&&s!=='—').sort().map(s=>({v:s,l:s}))];
+  renderList('msol',DD.msol.all);
+  resetExplorer();
   const ts=new Date().toLocaleString('es-CR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
   const dot=document.getElementById('bdot'),btxt=document.getElementById('btxt');
   if(src==='live'){dot.className='dot';btxt.innerHTML='<strong>'+data.length+' líneas en vivo</strong> desde SharePoint · '+ts;}
@@ -252,8 +390,7 @@ async function tryFetch(){
 }
 
 function toggleDD(id){
-  const o=id==='sol'?'oc':'sol';
-  if(DD[o].open)closeDD(o);
+  Object.keys(DD).filter(k=>k!==id&&DD[k].open).forEach(closeDD);
   DD[id].open=!DD[id].open;
   document.getElementById('btn-'+id).classList.toggle('open',DD[id].open);
   document.getElementById('panel-'+id).classList.toggle('open',DD[id].open);
@@ -264,7 +401,7 @@ function filterDD(id,q){const res=q?DD[id].all.filter(i=>i.l.toLowerCase().inclu
 function renderList(id,items){
   const el=document.getElementById('list-'+id);
   if(!items.length){el.innerHTML='<div class="ddempty">Sin resultados</div>';return;}
-  const cur=id==='sol'?ST.sol:ST.oc;
+  const cur=id==='sol'?ST.sol:(id==='msol'?MSOL:ST.oc);
   el.innerHTML=items.map(i=>'<div class="ddi'+(String(i.v)===String(cur)?' sel':'')+'" onclick="pickDD(\''+id+'\',\''+i.v+'\')">'+i.l+'</div>').join('');
 }
 function pickDD(id,val){
@@ -274,6 +411,13 @@ function pickDD(id,val){
     document.getElementById('val-oc').textContent='Seleccione una OC';document.getElementById('val-oc').className='ph';
     const keys=val==='(Todos)'?Object.keys(OC_MAP):[...SOL_MAP[val]||new Set()];
     buildOCList(keys);renderList('oc',DD.oc.all);clearCards();
+  }else if(id==='msol'){
+    MSOL=val;EXP=new Set();PAGE=1;
+    document.getElementById('val-msol').textContent=val;document.getElementById('val-msol').className='';
+    document.getElementById('flt-grid').style.display='grid';
+    clearFiltersSilent();
+    buildExplorerFilters(false);
+    renderExplorer();
   }else{
     ST.oc=val;
     document.getElementById('val-oc').textContent='OC-'+val;document.getElementById('val-oc').className='';
@@ -368,10 +512,154 @@ function renderTraz(rows){
   setTimeout(()=>document.querySelectorAll('.ts-dot.pulse').forEach(e=>e.classList.remove('pulse')),1500);
 }
 
+function excelToISO(s){
+  const n=parseFloat(s);
+  if(isNaN(n)||n<1)return '';
+  const d=new Date((n-25569)*86400000);
+  if(isNaN(d.getTime()))return '';
+  return d.toISOString().slice(0,10);
+}
+
+// ===== Explorador de OC (solo lectura) =====
+let EXP=new Set();
+const PAGE_SIZE=50;
+let PAGE=1;
+
+function onFilterChange(){PAGE=1;renderExplorer();}
+function goPage(p,total){
+  const max=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  PAGE=Math.min(Math.max(1,p),max);
+  renderExplorer();
+  const card=document.getElementById('card-all');
+  if(card&&card.scrollIntoView)card.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function goToPageInput(total){
+  const el=document.getElementById('pg-in');
+  const v=parseInt(el.value,10);
+  if(!isNaN(v))goPage(v,total);
+  el.value='';
+}
+function pgKey(e,total){if(e.key==='Enter')goToPageInput(total);}
+
+function solRows(){
+  if(MSOL===null)return [];
+  if(MSOL==='(Todos)')return RAW;
+  return RAW.filter(r=>(r[F.solicitante]||'—')===MSOL);
+}
+function clearFiltersSilent(){
+  ['f-oc','f-d1','f-d2'].forEach(i=>document.getElementById(i).value='');
+  ['f-est','f-traz','f-prov','f-proc'].forEach(i=>document.getElementById(i).value='');
+}
+function resetExplorer(){
+  MSOL=null;EXP=new Set();PAGE=1;
+  document.getElementById('val-msol').textContent='Seleccione un solicitante';
+  document.getElementById('val-msol').className='ph';
+  document.getElementById('flt-grid').style.display='none';
+  document.getElementById('badge-all').style.display='none';
+  document.getElementById('all-body').innerHTML='<div class="empty"><div class="empty-icon"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="14" r="6"/><path d="M5 38c0-7 5-11 11-11s11 4 11 11"/><line x1="32" y1="14" x2="40" y2="14"/><line x1="32" y1="21" x2="40" y2="21"/><line x1="32" y1="28" x2="38" y2="28"/></svg></div><p>Seleccione un solicitante para ver sus órdenes de compra</p></div>';
+}
+function fillSelect(id,values,keep){
+  const el=document.getElementById(id);
+  const prev=keep?el.value:'';
+  const first=el.options[0].outerHTML;
+  el.innerHTML=first+values.map(v=>'<option value="'+v.replace(/"/g,'&quot;')+'">'+v+'</option>').join('');
+  if(prev&&values.includes(prev))el.value=prev;
+}
+function buildExplorerFilters(keep){
+  const rows=solRows();
+  const u=f=>[...new Set(rows.map(r=>String(r[f]||'').trim()).filter(v=>v&&v!=='0'))].sort((a,b)=>a.localeCompare(b,'es'));
+  const est=[...new Set([...u(F.estatus),...u(F.estatus_oc)])].sort((a,b)=>a.localeCompare(b,'es'));
+  fillSelect('f-est',est,keep);
+  fillSelect('f-traz',u(F.traz),keep);
+  fillSelect('f-prov',u(F.proveedor),keep);
+  fillSelect('f-proc',u(F.procedencia),keep);
+}
+function clearFilters(){
+  clearFiltersSilent();
+  PAGE=1;
+  renderExplorer();
+}
+function getFilteredOCs(){
+  const q=document.getElementById('f-oc').value.trim().toLowerCase();
+  const est=document.getElementById('f-est').value;
+  const traz=document.getElementById('f-traz').value;
+  const prov=document.getElementById('f-prov').value;
+  const proc=document.getElementById('f-proc').value;
+  const d1=document.getElementById('f-d1').value;
+  const d2=document.getElementById('f-d2').value;
+  const map={};
+  solRows().forEach(r=>{const oc=r[F.oc];if(!map[oc])map[oc]=[];map[oc].push(r);});
+  const t=v=>String(v||'').trim();
+  return Object.keys(map).sort((a,b)=>Number(b)-Number(a)).filter(oc=>{
+    const rows=map[oc];
+    if(q&&!('oc-'+oc).toLowerCase().includes(q)&&!String(oc).toLowerCase().includes(q))return false;
+    if(est&&t(rows[0][F.estatus_oc])!==est&&!rows.some(r=>t(r[F.estatus])===est))return false;
+    if(traz&&!rows.some(r=>t(r[F.traz])===traz))return false;
+    if(prov&&!rows.some(r=>t(r[F.proveedor])===prov))return false;
+    if(proc&&!rows.some(r=>t(r[F.procedencia])===proc))return false;
+    const iso=excelToISO(rows[0][F.fecha_oc]);
+    if(d1&&(!iso||iso<d1))return false;
+    if(d2&&(!iso||iso>d2))return false;
+    return true;
+  }).map(oc=>({oc,rows:map[oc]}));
+}
+function toggleExp(oc){
+  if(EXP.has(oc))EXP.delete(oc);else EXP.add(oc);
+  renderExplorer();
+}
+function renderExplorer(){
+  if(MSOL===null){resetExplorer();return;}
+  const list=getFilteredOCs();
+  const total=new Set(solRows().map(r=>r[F.oc])).size;
+  const badge=document.getElementById('badge-all');
+  badge.textContent=MSOL==='(Todos)'?'Todos los solicitantes':MSOL;
+  badge.style.display='inline-block';
+  document.getElementById('f-count').textContent=list.length+' de '+total+' OC';
+  const body=document.getElementById('all-body');
+  if(!list.length){body.innerHTML='<div class="tbl-empty">No se encontraron órdenes de compra con los filtros aplicados</div>';return;}
+  const pages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));
+  if(PAGE>pages)PAGE=pages;
+  const a=(PAGE-1)*PAGE_SIZE,b=Math.min(a+PAGE_SIZE,list.length);
+  const pageList=list.slice(a,b);
+  const chev='<svg class="exp-chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6,4 10,8 6,12"/></svg>';
+  const trs=pageList.map(({oc,rows})=>{
+    const f=rows[0],open=EXP.has(oc);
+    const main='<tr class="exp-row'+(open?' open':'')+'" onclick="toggleExp(\''+String(oc).replace(/'/g,"\\'")+'\')">'+
+      '<td>'+chev+'</td>'+
+      '<td class="tc">OC-'+oc+'</td>'+
+      '<td class="tm">'+(excelToDate(f[F.fecha_oc])||'—')+'</td>'+
+      '<td class="td" title="'+String(f[F.proveedor]||'')+'">'+(f[F.proveedor]||'—')+'</td>'+
+      '<td>'+lpill(f[F.estatus_oc])+'</td>'+
+      '<td class="tm">'+(f[F.procedencia]||'—')+'</td>'+
+      '<td class="tn" style="text-align:center">'+rows.length+'</td></tr>';
+    if(!open)return main;
+    const det=rows.map((r,i)=>{
+      const com=String(r[F.comentario]||'').replace(/\r?\n/g,' ').trim();
+      return '<tr><td class="tn">'+(i+1)+'</td><td class="tc">'+(r[F.codigo]||'—')+'</td><td class="td" title="'+String(r[F.desc]||'').replace(/\r?\n/g,' ')+'">'+String(r[F.desc]||'—').replace(/\r?\n/g,' ')+'</td><td>'+lpill(r[F.estatus])+'</td><td class="tm">'+(r[F.sistema]||'—')+'</td><td>'+tpill(r[F.traz])+'</td><td class="tm">'+(excelToDate(r[F.f_req_ep])||'—')+'</td><td class="td" style="max-width:200px" title="'+com+'">'+(com||'<span class="tm">—</span>')+'</td></tr>';
+    }).join('');
+    return main+'<tr class="det-row"><td colspan="7"><div class="det-inner"><div class="tw"><table><thead><tr><th style="width:38px">#</th><th style="width:110px">Código</th><th>Descripción</th><th style="width:105px">Estatus</th><th style="width:90px">Sistema</th><th style="width:110px">Trazabilidad</th><th style="width:108px">Fecha req. EP</th><th style="width:200px">Comentario</th></tr></thead><tbody>'+det+'</tbody></table></div></div></td></tr>';
+  }).join('');
+  let pgbar='';
+  if(pages>1){
+    const T=list.length;
+    const btn=(sym,target,dis,title)=>'<button class="pgbtn" title="'+title+'" '+(dis?'disabled':'')+' onclick="goPage('+target+','+T+')">'+sym+'</button>';
+    pgbar='<div class="pgbar">'+
+      btn('&laquo;',1,PAGE===1,'Primera página')+
+      btn('&lsaquo;',PAGE-1,PAGE===1,'Página anterior')+
+      '<span class="pglbl">Página <strong>'+PAGE+'</strong> / '+pages+'</span>'+
+      btn('&rsaquo;',PAGE+1,PAGE===pages,'Página siguiente')+
+      btn('&raquo;',pages,PAGE===pages,'Última página')+
+      '<div class="pggo"><span>Ir a</span><input type="number" id="pg-in" min="1" max="'+pages+'" placeholder="#" onkeydown="pgKey(event,'+T+')"><button onclick="goToPageInput('+T+')">Ir</button></div>'+
+      '<span class="pgrange">Mostrando '+(a+1)+'–'+b+' de '+T+' OC</span>'+
+    '</div>';
+  }
+  body.innerHTML='<div class="tw"><table><thead><tr><th></th><th style="width:100px">OC</th><th style="width:105px">Fecha OC</th><th>Proveedor</th><th style="width:115px">Estatus OC</th><th style="width:110px">Procedencia</th><th style="width:64px;text-align:center">Líneas</th></tr></thead><tbody>'+trs+'</tbody></table></div>'+pgbar;
+}
+
 function handleDrop(e){e.preventDefault();document.getElementById('filedrop').classList.remove('over');const f=e.dataTransfer?.files[0];if(f)handleFile(f);}
 function handleFile(file){if(!file)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);processData(Array.isArray(d)?d:[],'file');}catch(err){alert('Error al leer el archivo: '+err.message);}};r.readAsText(file);}
 
-document.addEventListener('click',e=>{if(!e.target.closest('#dd-sol')&&DD.sol.open)closeDD('sol');if(!e.target.closest('#dd-oc')&&DD.oc.open)closeDD('oc');});
+document.addEventListener('click',e=>{if(!e.target.closest('#dd-sol')&&DD.sol.open)closeDD('sol');if(!e.target.closest('#dd-oc')&&DD.oc.open)closeDD('oc');if(!e.target.closest('#dd-msol')&&DD.msol.open)closeDD('msol');});
 
 // Boot: load embedded data immediately, then try SharePoint
 processData(EMBEDDED,'embedded');
